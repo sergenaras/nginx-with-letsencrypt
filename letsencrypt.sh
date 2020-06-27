@@ -5,7 +5,7 @@ nginx_control(){
 	if [[ -z "$is_nginx_installed" ]]; then
 		nginx_install
 	elif [[ -n "$is_nginx_installed" ]]; then
-		echo "$nginx_name yüklü"
+		echo "Nginx yüklü"
 	fi
 }
 
@@ -16,7 +16,7 @@ nginx_install(){
 		echo "Yükleme işlemi başlıyor" 
 		yum -y update > /dev/null
 		echo "Update işlemi yapıldı"
-		yum -y install epel-release	> /dev/null
+		yum -y install epel-release > /dev/null
 		echo "Epel deposu yüklendi"
 		yum -y install nginx > /dev/null
 		echo "Nginx yazılımı yüklendi"
@@ -55,7 +55,7 @@ echo "dhparam komutu ile şifreleme anahtarı oluşturuldu"
 mkdir -p /var/lib/letsencrypt/.well-known
 chgrp nginx /var/lib/letsencrypt
 chmod g+s /var/lib/letsencrypt
-mkdir /etc/nginx/snippets
+mkdir -p /etc/nginx/snippets
 echo "Let's Encrypt tarafında yapılan işlemler için gerekli dizinler oluşturuldu ve yetkileri ayarlandı"
 
 #bu dosya ile aynı lokasyonda bulunan dosyaların ilgili yerlere taşınması
