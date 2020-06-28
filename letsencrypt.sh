@@ -14,11 +14,14 @@ nginx_install(){
 	read selection
 	if [[ "$selection" == "Y" || "$selection" == "y" || "$selection" == "E" || "$selection" == "e" ]]; then
 		echo "Yükleme işlemi başlıyor" 
-		yum -y update > /dev/null
+		yum -y update >> /tmp/letsencrypt.log
+		echo "#########################################################################################" >> /tmp/letsencrypt.log
 		echo "Update işlemi yapıldı"
-		yum -y install epel-release > /dev/null
+		yum -y install epel-release >> /tmp/letsencrypt.log
+		echo "#########################################################################################" >> /tmp/letsencrypt.log
 		echo "Epel deposu yüklendi"
-		yum -y install nginx > /dev/null
+		yum -y install nginx >> /tmp/letsencrypt.log
+		echo "#########################################################################################" >> /tmp/letsencrypt.log
 		echo "Nginx yazılımı yüklendi"
 		systemctl start nginx
 		systemctl enable nginx
@@ -35,7 +38,8 @@ nginx_install(){
 nginx_control
 
 #ssl işlemini yapacak tool
-yum -y install certbot > /dev/null
+yum -y install certbot >> /tmp/letsencrypt.log
+echo "#########################################################################################" >> /tmp/letsencrypt.log
 echo "Certbot yüklendi"
 
 #ssl işin kullanılacak şifreleme anahtarı
@@ -48,7 +52,8 @@ elif [[ -n $dh_answer ]]; then
 	dhparam_key=$dh_answer
 fi
 
-openssl dhparam -out /etc/ssl/certs/dhparam.pem $dhparam_key > /dev/null
+openssl dhparam -out /etc/ssl/certs/dhparam.pem $dhparam_key >> /tmp/letsencrypt.log
+echo "#########################################################################################" >> /tmp/letsencrypt.log
 echo "dhparam komutu ile şifreleme anahtarı oluşturuldu"
 
 #ilgili dizinlerin oluşturulması ve yekilendirilmesi
